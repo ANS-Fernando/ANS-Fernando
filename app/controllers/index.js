@@ -90,7 +90,7 @@ export default Ember.Controller.extend({
   }),
 
   endDate: Ember.computed (function() {
-    return dates[this.get('numDates') - 1s];
+    return dates[this.get('numDates') - 1];
   }),
 
   lastDate: Ember.computed (function() {
