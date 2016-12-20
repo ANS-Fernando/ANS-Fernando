@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>El rotacuentos ({{initDate}} - {{endDate}})</h1>
+
+  <div class="jumbotron">
+
+<p>Somos {{numReaders}} niñ@s con {{numBooks}} libros, nos los vamos cambiando
+  cada semana para leerlos todos. Tenemos {{numDates}} fechas para hacerlo.
+  Cada uno hemos leído hasta ahora ({{now}}), {{numRed}} y nos faltan por leer {{numLeft}}.
+</p>
+
+<p>Si yo fuera ({{numRandom}}) {{#power-select
+  		options=readers
+  		matchTriggerWidth=false
+  		selected=currentReader
+  		onchange=(action (mut currentReader))
+  		as |reader|
+  	}}
+  	  <strong>{{reader}}</strong>
+  	{{/power-select}}
+    Estaría leyendo el cuento ({{numBook}}) <strong>'{{currentBook}}'</strong>, que me dejó
+<strong>{{donater}}</strong> el {{lastDate}}, y yo se lo pasaré a <strong>{{reciver}}</strong> el {{nextDate}}.
+</p>
+
+  </div>
+  <div class="bg">
+    {{outlet}}
+  </div>
+</div>
