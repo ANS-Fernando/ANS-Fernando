@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>El rotacuentos ({{moment-calendar initDate}} - {{moment-calendar endDate}})</h1>
+  <h1>El rotacuentos ({{moment-format initDate}} - {{moment-format endDate}})</h1>
 
   <div class="jumbotron">
 
@@ -18,8 +18,10 @@
   	  <strong>{{reader}}</strong>
   	{{/power-select}}
     Estaría leyendo el cuento ({{numBook}}) <strong>'{{currentBook}}'</strong>, que me dejó
-<strong>{{donater}}</strong> el {{lastDate}}, y yo se lo pasaré a <strong>{{reciver}}</strong> el {{nextDate}}.
+<strong>{{donater}}</strong> hace {{moment-to-now lastDate}}, y yo se lo pasaré a <strong>{{reciver}}</strong> el {{moment-format nextDate 'D MMMM'}}.
 </p>
+
+
 
   </div>
   <div class="bg">
