@@ -1,29 +1,29 @@
 import Ember from 'ember';
 const dates = [
-	new Date("2016/11/25"),
-	new Date("2016/12/02"),
-	new Date("2016/12/16"),
-	new Date("2016/12/22"),
-	new Date("2016/01/13"),
-	new Date("2016/01/20"),
-	new Date("2016/01/26"),
-	new Date("2016/02/03"),
-	new Date("2016/02/10"),
-	new Date("2016/02/17"),
-	new Date("2016/02/24"),
-	new Date("2016/03/03"),
-	new Date("2016/03/10"),
-	new Date("2016/03/17"),
-	new Date("2016/03/31"),
-	new Date("2016/04/07"),
-	new Date("2016/04/21"),
-	new Date("2016/04/28"),
-	new Date("2016/05/05"),
-	new Date("2016/05/12"),
-	new Date("2016/05/19"),
-	new Date("2016/05/26"),
-	new Date("2016/06/02"),
-	new Date("2016/06/09")
+	new Date("2016/11/25 16:00"),
+	new Date("2016/12/02 16:00"),
+	new Date("2016/12/16 16:00"),
+	new Date("2016/12/22 16:00"),
+	new Date("2017/01/13 16:00"),
+	new Date("2017/01/20 16:00"),
+	new Date("2017/01/26 16:00"),
+	new Date("2017/02/03 16:00"),
+	new Date("2017/02/10 16:00"),
+	new Date("2017/02/17 16:00"),
+	new Date("2017/02/24 16:00"),
+	new Date("2017/03/03 16:00"),
+	new Date("2017/03/10 16:00"),
+	new Date("2017/03/17 16:00"),
+	new Date("2017/03/31 16:00"),
+	new Date("2017/04/07 16:00"),
+	new Date("2017/04/21 16:00"),
+	new Date("2017/04/28 16:00"),
+	new Date("2017/05/05 16:00"),
+	new Date("2017/05/12 16:00"),
+	new Date("2017/05/19 16:00"),
+	new Date("2017/05/26 16:00"),
+	new Date("2017/06/02 16:00"),
+	new Date("2017/06/09 16:00")
 ];
 
 const readers = [
@@ -83,6 +83,8 @@ export default Ember.Controller.extend({
 
 	now: new Date(),
 
+	dates: dates,
+
 	numDates: dates.length,
 
 	initDate: Ember.computed(function() {
@@ -113,10 +115,35 @@ export default Ember.Controller.extend({
 
 	numBooks: books.length,
 
-	numRed: 2,
+	numRed: Ember.computed('now', 'dates', function() {
+		let leidos = 0;
+		for (var i = 0; i < this.dates.length; i++) {
+			if (this.now > this.dates[i]) {
+				leidos++;
+			}
+		}
+		return leidos;
+	}),
 
-	numLeft: Ember.computed(function() {
-		return this.numReaders - this.numRed;
+	numLeft: Ember.computed('now', 'dates', function() {
+		let porLeer = 0;
+		for (var i = 0; i < this.dates.length; i++) {
+			if (this.now < this.dates[i]) {
+				porLeer++;
+			}
+		}
+		return porLeer;
+	}),
+
+	redPorcentaje: Ember.computed('numRed', 'numBooks',
+		function() {
+			const currentPercentaje = (this.get('numRed') * 100) / this.get('numBooks');
+			return Math.round(currentPercentaje);
+		}),
+
+	timePorcentaje: Ember.computed('lastDate', 'nextDate', 'now', function() {
+		const currentPercentaje = ((this.get('nextDate') - this.get('now')) * 100) / (this.get('nextDate') - this.get('lastDate'));
+		return Math.round(currentPercentaje);
 	}),
 
 	currentBook: Ember.computed(function() {

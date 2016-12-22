@@ -1,14 +1,23 @@
 <div class="container">
-  <h1>El rotacuentos ({{moment-format initDate}} - {{moment-format endDate}})</h1>
 
-  <div class="jumbotron">
+<ul class="nav nav-pills">
+  <li role="presentation" class="success"><a href="#"><h4><span class="glyphicon glyphicon-registration-mark"></span>tacuentos</h4></a></li>
+  <li role="presentation"><a href="#"><h4><label class="label label-danger"><span class="glyphicon glyphicon-time"></span> rota {{moment-from-now nextDate}}</label></h4></a></li>
+</ul>
 
-<p>Somos {{numReaders}} niñ@s con {{numBooks}} libros, nos los vamos cambiando
-  cada semana para leerlos todos. Tenemos {{numDates}} fechas para hacerlo.
-  Cada uno hemos leído hasta ahora ({{moment-to-now initDate}}), {{numRed}} y nos faltan por leer {{numLeft}}.
-</p>
+<div class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{timePorcentaje}}%">
+    <span>{{timePorcentaje}}%</span>
+  </div>
+</div>
 
-<p>Si yo fuera ({{numRandom}}) {{#power-select
+  <div class="alert alert-info" role="alert">
+<h6>Somos {{numReaders}} niñ@s que compartimos libros, cambiándolos semanalmente 
+para leerlos todos. Cada uno hemos leído, desde {{moment-from-now initDate}}, {{numRed}} y nos faltan por leer {{numLeft}}.
+</h6>
+
+<p>Si yo fuera el {{numRandom}}º de la lista...
+ {{#power-select
   		options=readers
   		matchTriggerWidth=false
   		selected=currentReader
@@ -17,14 +26,16 @@
   	}}
   	  <strong>{{reader}}</strong>
   	{{/power-select}}
-    Estaría leyendo el cuento ({{numBook}}) <strong>'{{currentBook}}'</strong>, que me dejó
-<strong>{{donater}}</strong> hace {{moment-to-now lastDate}}, y yo se lo pasaré a <strong>{{reciver}}</strong> el {{moment-format nextDate 'D MMMM'}}.
+    ...estaría leyendo el {{numBook}}º cuento <strong>'{{currentBook}}'</strong>, que me dejó <strong>{{donater}}</strong> {{moment-from-now lastDate}}, y yo se lo pasaré a <strong>{{reciver}}</strong> {{moment-from-now nextDate}}.
 </p>
-
-
-
+<h4><label class="label label-warning"><span class="glyphicon glyphicon-forward"></span> {{moment-format nextDate}}</label></h4>
   </div>
-  <div class="bg">
-    {{outlet}}
+
+<div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{numRed}}" aria-valuemin="0" aria-valuemax="{{numReaders}}" style="width: {{redPorcentaje}}%">
+    <span>{{redPorcentaje}}%</span>
   </div>
+    <label class="label label-danger">{{numRed}} de {{numBooks}}</label>
 </div>
+</div>
+<!--footer>{{moment-format initDate}} - {{moment-format endDate}}</footer-->
